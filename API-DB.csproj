@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include=".github\workflows\ci-tests.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="FluentAssertions" Version="8.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
@@ -31,5 +35,16 @@
   <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
+	
+  <ItemGroup>
+	<None Update="errorMessages.json">
+	<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+  </ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

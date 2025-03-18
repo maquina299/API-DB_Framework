@@ -13,12 +13,19 @@ namespace API_DB.src.Models
     public class CreateItemResult
     {
         [JsonProperty("id")]
+        [Required]
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Section { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public string Color { get; set; }
+        [Required]
         public int Price { get; set; }
+        [Required]
         public string Params { get; set; }
     }
     public class FailedCreateItemResult
@@ -36,7 +43,9 @@ namespace API_DB.src.Models
         [JsonProperty("error")]
         public string Error { get; set; }
         [JsonProperty("message")]
-        [Required(ErrorMessage = "Название товара не з1аполнено!")]
+        [Required]
+        [ConditionalMessage]
+        //[RegularExpression(@"^Название товара не заполнено!$", ErrorMessage = "Message value is invalid.")] // ⚡️ Exact value check
         public string Message { get; set; }
     }
 }
