@@ -14,5 +14,14 @@ namespace API_DB.Config
             Price = 30,
             Params = "slim"
         };
+        public static readonly CreateItemRequest CreateNewItemNoName = new CreateItemRequest
+        {
+            Section = "Test",
+            Description = "Levis!",
+            Color = "blue",
+            Size = 42,
+            Price = 30,
+            Params = "slim"
+        };
     }
 }

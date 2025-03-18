@@ -1,0 +1,8 @@
+{
+  "ErrorMessages": {
+    "name": "Название товара не заполнено!",
+    "section": "Категория не найдена!",
+    "description": "Описание товара не заполнено!",
+    "default": "Invalid error field."
+  }
+}

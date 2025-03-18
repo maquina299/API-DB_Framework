@@ -1,10 +1,11 @@
 ﻿using FluentAssertions;
 using API_DB.Models;
 using API_DB.API;
-using Newtonsoft.Json;
 using API_DB.Config;
 using API_DB.Utils;
-using System.Net;
+using API_DB.src.Models;
+using API_DB.src.API;
+
 
 
 namespace API_DB.Tests
@@ -16,7 +17,7 @@ namespace API_DB.Tests
         [SetUp]
         public void Setup()
         {
-            LoggerSetup.ConfigureLogging(); // ✅ Ensure logging is configured
+            LoggerSetup.ConfigureLogging();
             _apiClient = new ApiClient();
             Log.Information("Test Setup Initialized");
         }
@@ -28,7 +29,7 @@ namespace API_DB.Tests
 
             try
             {
-                var createResponse = await _apiClient.PostAsync(ApiEndpoints.CreateItem, TestData.CreateNewItem);  // ⚡️ Updated APIEndpoints → ApiEndpoint
+                var createResponse = await _apiClient.PostAsync(ApiEndpoints.CreateItem, TestData.CreateNewItem); 
                 createResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
                 Log.Information("Create Item Response: {ResponseContent}", createResponse.Content);
@@ -39,7 +40,7 @@ namespace API_DB.Tests
 
                 var selectRequest = new SelectItemRequest { Sql_Query = $"SELECT * FROM items WHERE last_id = {itemId};" };
                 string requestJson = JsonConvert.SerializeObject(selectRequest);
-                var selectResponse = await _apiClient.PostAsync(ApiEndpoints.SelectItem, requestJson);  // ⚡️ Updated APIEndpoints → ApiEndpoint
+                var selectResponse = await _apiClient.PostAsync(ApiEndpoints.SelectItem, requestJson);
                 selectResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
                 Log.Information("Select Item Response: {ResponseContent}", selectResponse.Content);
@@ -48,14 +49,14 @@ namespace API_DB.Tests
                 selectedItem.Result.Should().ContainSingle(item => item.Id == itemId);
 
                 var deleteRequest = new DeleteItemRequest { Id = itemId };
-                var deleteResponse = await _apiClient.PostAsync(ApiEndpoints.DeleteItem, deleteRequest);  // ⚡️ Updated APIEndpoints → ApiEndpoint
+                var deleteResponse = await _apiClient.PostAsync(ApiEndpoints.DeleteItem, deleteRequest); 
                 deleteResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
                 Log.Information("Delete Item Response: {ResponseContent}", deleteResponse.Content);
                 var deletedItem = JsonConvert.DeserializeObject<DeleteItemResponse>(deleteResponse.Content);
                 deletedItem.Status.Should().Be("ok");
             }
-            catch (Exception ex) // ⚡️ Handle API errors gracefully
+            catch (Exception ex)
             {
                 Log.Error("Test failed due to an exception: {ExceptionMessage}", ex.Message);
                 Assert.Fail($"Test failed: {ex.Message}");
@@ -63,5 +64,32 @@ namespace API_DB.Tests
 
             Log.Information("Test Create_Select_Delete_Item_Test completed successfully!");
         }
+
+        [Test]
+        public async Task Failed_Item_Creation_Test()
+        {
+            Log.Information("Starting Failed_Item_Creation_Test");
+
+            try
+            {
+                var createResponse = await _apiClient.PostAsync(ApiEndpoints.CreateItem, TestData.CreateNewItemNoName);
+                createResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
+                Log.Information("Create Item Response: {ResponseContent}", createResponse.Content);
+                var failedItemCreation = JsonConvert.DeserializeObject<CreateItemResponse>(createResponse.Content);
+
+                failedItemCreation.Status.Should().Be("error");
+                ResponseValidator.ValidateResponse<FailedCreateItemResult>(createResponse);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Test failed due to an exception: {ExceptionMessage}", ex.Message);
+                Assert.Fail($"Test failed: {ex.Message}");
+            }
+
+            Log.Information("Test Failed_Item_Creation_Test completed successfully!");
+        }
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿using RestSharp;
+using System.ComponentModel.DataAnnotations;
+using API_DB.Models;
 
 namespace API_DB.API
 {
@@ -21,7 +23,6 @@ namespace API_DB.API
             {
                 var response = await _client.ExecuteAsync(request);
 
-                // ⚡️ Log full response (success or failure)
                 Log.Information("API Response: {StatusCode} {Content}", response.StatusCode, response.Content);
 
                 // ⚡️ Handle error responses gracefully
@@ -41,6 +42,8 @@ namespace API_DB.API
                 throw;  // ⚡️ Re-throw the exception so the test fails with useful info
             }
         }
+
+
     }
 }
 
