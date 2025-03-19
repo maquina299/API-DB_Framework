@@ -2,7 +2,7 @@
 
 namespace API_DB.API
 {
-    public class ApiClient  // ⚡️ Renamed from APIClient → ApiClient
+    public class ApiClient
     {
         private readonly RestClient _client;
 
@@ -23,7 +23,6 @@ namespace API_DB.API
 
                 Log.Information("API Response: {StatusCode} {Content}", response.StatusCode, response.Content);
 
-                // ⚡️ Handle error responses gracefully
                 if (!response.IsSuccessful)
                 {
                     Log.Error("API Request Failed! Status: {StatusCode}, Error: {ErrorMessage}",
@@ -37,7 +36,7 @@ namespace API_DB.API
             catch (Exception ex)
             {
                 Log.Error("Exception in ApiClient: {ExceptionMessage}", ex.Message);
-                throw;  // ⚡️ Re-throw the exception so the test fails with useful info
+                throw; 
             }
         }
 
