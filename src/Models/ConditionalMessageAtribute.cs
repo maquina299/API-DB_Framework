@@ -4,10 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 public class ConditionalMessageAttribute : ValidationAttribute
 {
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
     {
-        if (value is string message)
+        if (value is not string message)
         {
+            return new ValidationResult("Invalid value type.");
+        }
+        else
+        {
+
             // Get the instance of the model being validated
             var model = validationContext.ObjectInstance as FailedCreateItemResult;
 
@@ -19,7 +24,7 @@ public class ConditionalMessageAttribute : ValidationAttribute
                 switch (model.ErrorField)
                 {
                     case "name":
-                        if (message != errorMessages.Name )
+                        if (message != errorMessages.Name)
                         {
                             return new ValidationResult(errorMessages.Default);
                         }
@@ -34,7 +39,7 @@ public class ConditionalMessageAttribute : ValidationAttribute
                     case "description":
                         if (message != errorMessages.Description)
                         {
-                            return new ValidationResult(errorMessages.Default); 
+                            return new ValidationResult(errorMessages.Default);
                         }
                         break;
 
@@ -45,6 +50,6 @@ public class ConditionalMessageAttribute : ValidationAttribute
         }
 
         // If the message matches the expected value, return success
-        return ValidationResult.Success;
+        return ValidationResult.Success!;
     }
 }

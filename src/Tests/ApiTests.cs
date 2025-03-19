@@ -46,11 +46,13 @@ namespace API_DB.Tests
                 Log.Information("Select Item Response: {ResponseContent}", selectResponse.Content);
                 var selectedItem = JsonConvert.DeserializeObject<SelectItemResponse>(selectResponse.Content);
                 selectedItem.Status.Should().Be("ok");
-                selectedItem.Result.Should().ContainSingle(item => item.Id == itemId);
+                selectedItem.Should().BeEquivalentTo(createdItem, options => options.ExcludingMissingMembers());
+
 
                 var deleteRequest = new DeleteItemRequest { Id = itemId };
                 var deleteResponse = await _apiClient.PostAsync(ApiEndpoints.DeleteItem, deleteRequest); 
                 deleteResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+
 
                 Log.Information("Delete Item Response: {ResponseContent}", deleteResponse.Content);
                 var deletedItem = JsonConvert.DeserializeObject<DeleteItemResponse>(deleteResponse.Content);

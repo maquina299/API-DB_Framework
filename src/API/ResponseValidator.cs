@@ -20,9 +20,11 @@ namespace API_DB.src.API
 
             // Deserialize the response into the specified model
             T responseModel;
+
             try
             {
-                responseModel = JsonConvert.DeserializeObject<T>(response.Content);
+                responseModel = JsonConvert.DeserializeObject<T>(response.Content)
+                ?? throw new Exception("Deserialization returned null. Response content might be invalid.");
             }
             catch (JsonException ex)
             {
