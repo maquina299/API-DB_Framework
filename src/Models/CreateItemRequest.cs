@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace API_DB.Models
+﻿namespace API_DB.Models
 {
     public class CreateItemRequest
     {

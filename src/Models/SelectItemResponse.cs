@@ -1,7 +1,4 @@
-﻿using API_DB.Models;
-using Newtonsoft.Json;
-
-namespace API_DB.Models
+﻿namespace API_DB.Models
 {
     public class SelectItemResponse
     {

@@ -3,7 +3,6 @@ using Dapper;
 using FluentAssertions;
 using MySql.Data.MySqlClient;
 using API_DB.Config;
-using API_DB.Models;
 
 namespace API_DB.Tests
 {
@@ -30,27 +29,10 @@ namespace API_DB.Tests
             var items = _dbConnection.Query<Item>(sqlQuery).ToList();
 
             Log.Information("Items: {@Items}", items);
-            // Assert
-            var expectedItem = new
-            {
-                ID = 34,
-                Title = "Polo Shirt",
-                Price = 65.00m,
-                Size = 50,
-                Category_Id = 5,
-                Description = "Casual polo T-shirt",
-                Image = "/images/shirt3.jpg"
-            };
 
             // Assert
             items.Should().HaveCount(1, "потому что запрос по ID должен вернуть только одну запись");
-            items.Should().ContainSingle().Which.Should().BeEquivalentTo(expectedItem);
-
-
-
-
-
-
+            items.Should().ContainSingle().Which.Should().BeEquivalentTo(TestData.expectedDbRequestItem);
         }
 
 

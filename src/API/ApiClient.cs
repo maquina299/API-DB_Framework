@@ -1,6 +1,4 @@
 ﻿using RestSharp;
-using System.ComponentModel.DataAnnotations;
-using API_DB.Models;
 
 namespace API_DB.API
 {
