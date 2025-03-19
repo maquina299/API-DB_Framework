@@ -38,7 +38,7 @@ namespace API_DB.Tests
 
                 Log.Information("Select Item Response: {ResponseContent}", selectResponse.Content);
                 var selectedItem = JsonConvert.DeserializeObject<SelectItemResponse>(selectResponse.Content);
-                selectedItem.Status.Should().Be("ok");
+                selectedItem?.Status.Should().Be("ok");
                 selectedItem.Should().BeEquivalentTo(createdItem, options => options.ExcludingMissingMembers());
 
 
@@ -49,7 +49,7 @@ namespace API_DB.Tests
 
                 Log.Information("Delete Item Response: {ResponseContent}", deleteResponse.Content);
                 var deletedItem = JsonConvert.DeserializeObject<DeleteItemResponse>(deleteResponse.Content);
-                deletedItem.Status.Should().Be("ok");
+                deletedItem?.Status.Should().Be("ok");
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace API_DB.Tests
                 Log.Information("Create Item Response: {ResponseContent}", createResponse.Content);
                 var failedItemCreation = JsonConvert.DeserializeObject<CreateItemResponse>(createResponse.Content);
 
-                failedItemCreation.Status.Should().Be("error");
+                failedItemCreation?.Status.Should().Be("error");
                 ResponseValidator.ValidateResponse<FailedCreateItemResult>(createResponse);
 
             }

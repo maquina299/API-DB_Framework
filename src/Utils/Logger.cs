@@ -5,8 +5,8 @@
         public static void ConfigureLogging()
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()    // ✅ Logs to Console
-                .WriteTo.File("logs/test_log.txt", rollingInterval: RollingInterval.Day) // ✅ Logs to File
+                .WriteTo.Console()
+                .WriteTo.File("logs/test_log.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
         }
     }

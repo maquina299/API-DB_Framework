@@ -6,15 +6,13 @@ namespace API_DB.API
 {
     public static class ResponseValidator
     {
-        // ⚡️ CHANGE: Generic method to validate response against a model
         public static void ValidateResponse<T>(RestResponse response) where T : class
         {
-            // ⚡️ ADD: Log the start of validation
             Log.Information("Starting validating the response against {ModelType}", typeof(T).Name);
 
             if (response.Content == null)
             {
-                Log.Error("Response content is null."); // ⚡️ ADD: Log error
+                Log.Error("Response content is null."); 
                 throw new Exception("Response content is null.");
             }
 
@@ -28,13 +26,13 @@ namespace API_DB.API
             }
             catch (JsonException ex)
             {
-                Log.Error(ex, "Failed to deserialize response: {ErrorMessage}", ex.Message); // ⚡️ ADD: Log deserialization error
+                Log.Error(ex, "Failed to deserialize response: {ErrorMessage}", ex.Message); 
                 throw new Exception($"Failed to deserialize response: {ex.Message}");
             }
 
             if (responseModel == null)
             {
-                Log.Error("Deserialized response model is null."); // ⚡️ ADD: Log error
+                Log.Error("Deserialized response model is null."); 
                 throw new Exception("Deserialized response model is null.");
             }
 
@@ -46,11 +44,9 @@ namespace API_DB.API
             if (!isValid)
             {
                 var errors = string.Join(", ", validationResults.Select(v => v.ErrorMessage));
-                Log.Error("Response validation failed: {ValidationErrors}", errors); // ⚡️ ADD: Log validation errors
+                Log.Error("Response validation failed: {ValidationErrors}", errors);
                 throw new Exception($"Response validation failed: {errors}");
             }
-
-            // ⚡️ ADD: Log successful validation
             Log.Information("Response validation succeeded for {ModelType}", typeof(T).Name);
         }
     }

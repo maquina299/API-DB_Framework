@@ -22,14 +22,14 @@
             Params = "slim"
         };
         public static readonly Item expectedDbRequestItem = new Item
-            {
-                ID = 34,
-                Title = "Polo Shirt",
-                Price = 65.00m,
-                Size = 50,
-                Category_Id = 5,
-                Description = "Casual polo T-shirt",
-                Image = "/images/shirt3.jpg"
-            };
+        {
+            ID = 34,
+            Title = "Polo Shirt",
+            Price = 65.00m,
+            Size = 50,
+            Category_Id = 5,
+            Description = "Casual polo T-shirt",
+            Image = "/images/shirt3.jpg"
+        };
 }
 }
