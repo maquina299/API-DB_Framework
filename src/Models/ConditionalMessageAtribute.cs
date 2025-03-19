@@ -1,5 +1,4 @@
-﻿using API_DB.src.Models;
-using API_DB.Config;
+﻿using API_DB.Config;
 using System.ComponentModel.DataAnnotations;
 
 public class ConditionalMessageAttribute : ValidationAttribute

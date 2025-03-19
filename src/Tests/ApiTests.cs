@@ -1,12 +1,5 @@
 ﻿using FluentAssertions;
-using API_DB.Models;
-using API_DB.API;
 using API_DB.Config;
-using API_DB.Utils;
-using API_DB.src.Models;
-using API_DB.src.API;
-
-
 
 namespace API_DB.Tests
 {

@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace API_DB.src.Models
+namespace API_DB.Models
 {
     public class CreateItemResponse
     {

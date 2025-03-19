@@ -2,7 +2,7 @@
 using RestSharp;
 
 
-namespace API_DB.src.API
+namespace API_DB.API
 {
     public static class ResponseValidator
     {
